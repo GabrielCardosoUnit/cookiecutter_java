@@ -4,27 +4,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
   <requiredProperties>
-    <requiredProperty key="author">
-      <defaultValue>Seu Nome</defaultValue>
-    </requiredProperty>
-    <requiredProperty key="description">
-      <defaultValue>Projeto gerado com o cookiecutter-archetype</defaultValue>
-    </requiredProperty>
-    <requiredProperty key="includeDependencies">
-      <defaultValue>S</defaultValue>
-    </requiredProperty>
-    <requiredProperty key="includeTests">
-      <defaultValue>S</defaultValue>
-    </requiredProperty>
-    <requiredProperty key="includeDocs">
-      <defaultValue>S</defaultValue>
-    </requiredProperty>
-    <requiredProperty key="includeGit">
-      <defaultValue>S</defaultValue>
-    </requiredProperty>
-    <requiredProperty key="includeLicense">
-      <defaultValue>S</defaultValue>
-    </requiredProperty>
+    <requiredProperty key="author"/>
+    <requiredProperty key="description"/>
+    <requiredProperty key="includeDependencies"/>
+    <requiredProperty key="includeTests"/>
+    <requiredProperty key="includeDocs"/>
+    <requiredProperty key="includeGit"/>
+    <requiredProperty key="includeLicense"/>
   </requiredProperties>
 
   <fileSets>
