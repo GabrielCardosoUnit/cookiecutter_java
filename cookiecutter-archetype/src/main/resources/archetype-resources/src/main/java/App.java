@@ -4,7 +4,9 @@
 package ${package};
 
 /**
- * Hello world.
+ * ${description}
+ *
+ * @author ${author}
  */
 public class App {
   public static void main(String[] args) {

@@ -8,22 +8,33 @@
   <packaging>jar</packaging>
 
   <name>${artifactId}</name>
-  <description>Gerador de projetos Maven com boas praticas (testes, cobertura, lint, docs, CI) - inspirado no MolSSI Cookiecutter CMS</description>
+  <description>${description}</description>
   <url>http://maven.apache.org</url>
+
+  <developers>
+    <developer>
+      <name>${author}</name>
+    </developer>
+  </developers>
 
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+#if( $includeTests == "S" )
     <junit.version>5.10.2</junit.version>
     <jacoco.version>0.8.15</jacoco.version>
+#end
+#if( $includeDependencies == "S" )
     <checkstyle.version>10.17.0</checkstyle.version>
     <checkstyle.plugin.version>3.4.0</checkstyle.plugin.version>
+#end
     <surefire.version>3.2.5</surefire.version>
   </properties>
 
   <dependencies>
+#if( $includeTests == "S" )
     <!-- JUnit 5 -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -31,6 +42,7 @@
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
+#end
   </dependencies>
 
   <build>
@@ -49,6 +61,7 @@
         <version>${surefire.version}</version>
       </plugin>
 
+#if( $includeTests == "S" )
       <!-- JaCoCo: cobertura de testes -->
       <plugin>
         <groupId>org.jacoco</groupId>
@@ -91,7 +104,9 @@
           </execution>
         </executions>
       </plugin>
+#end
 
+#if( $includeDependencies == "S" )
       <!-- Checkstyle: lint / estilo de codigo -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -120,7 +135,9 @@
           </execution>
         </executions>
       </plugin>
+#end
 
+#if( $includeDocs == "S" )
       <!-- Javadoc: documentacao -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -130,6 +147,7 @@
           <doclint>none</doclint>
         </configuration>
       </plugin>
+#end
     </plugins>
   </build>
 </project>
