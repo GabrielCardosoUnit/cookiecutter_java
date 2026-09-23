@@ -1,10 +1,8 @@
-name: CI
+name: Build
 
 on:
   push:
-    branches: [ "main", "develop" ]
   pull_request:
-    branches: [ "main", "develop" ]
 
 permissions:
   contents: read
@@ -14,15 +12,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout do codigo
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Configurar JDK 21
+      - name: Configurar JDK ${javaVersion}
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '21'
+          java-version: '${javaVersion}'
           cache: 'maven'
 
-      - name: Compilar e testar o gerador
+      - name: Compilar e testar
         run: mvn --batch-mode test

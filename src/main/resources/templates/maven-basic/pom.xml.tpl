@@ -3,36 +3,38 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>br.edu.unit</groupId>
-  <artifactId>jmol-project-generator</artifactId>
+  <groupId>${groupId}</groupId>
+  <artifactId>${artifactId}</artifactId>
   <version>0.1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>JMol Project Generator</name>
-  <description>Gerador de projetos Maven prontos para testes, inspirado no Cookiecutter for Computational Molecular Sciences (MolSSI)</description>
+  <name>${projectName}</name>
+  <description>${description}</description>
+
+  <licenses>
+    <license>
+      <name>${licenseName}</name>
+      <url>${licenseUrl}</url>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>${author}</name>
+    </developer>
+  </developers>
 
   <properties>
-    <maven.compiler.release>21</maven.compiler.release>
+    <maven.compiler.release>${javaVersion}</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-    <jackson.version>2.19.2</jackson.version>
-    <junit.version>5.10.2</junit.version>
   </properties>
 
   <dependencies>
-    <!-- JSON: manifesto de geracao (e, na fase 4, importacao/exportacao do ProjectSpec) -->
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>${jackson.version}</version>
-    </dependency>
-
-    <!-- JUnit 5 (inclui junit-jupiter-params para testes parametrizados) -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <version>${junit.version}</version>
+      <version>5.10.2</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -44,7 +46,6 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.13.0</version>
       </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>

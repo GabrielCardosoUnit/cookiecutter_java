@@ -1,113 +1,148 @@
-# cookiecutter-java
+# JMol Project Generator
 
-Gerador de projetos Maven com boas praticas (testes, cobertura, lint, documentacao e CI),
-inspirado no [Cookiecutter CC-CMS da MolSSI](https://github.com/MolSSI/cookiecutter-cms).
-Projeto desenvolvido para a disciplina de Projeto de Programacao (Universidade Tiradentes).
+Gerador de projetos Maven prontos para testes, inspirado no
+[Cookiecutter for Computational Molecular Sciences](https://github.com/MolSSI/cookiecutter-cms)
+(Naden et al., *J. Chem. Educ.* 2024, 101, 5105-5109, DOI 10.1021/acs.jchemed.4c00793).
 
-O repositorio tem duas partes:
+Projeto do Grupo 3 (Artigo 6) da disciplina de Projeto de Programacao, Universidade Tiradentes.
 
-- **Projeto base** (raiz do repositorio) — um projeto Maven de exemplo, com todas as
-  ferramentas ja configuradas: JUnit 5, JaCoCo (cobertura), Checkstyle (lint), Javadoc e CI.
-- **`cookiecutter-archetype/`** — o "gerador" propriamente dito: um Maven Archetype que cria
-  novos projetos com essa mesma estrutura, perguntando de forma interativa autor, descricao
-  e quais recursos incluir.
+A partir de poucas respostas (nome, artifactId, pacote, autor, descricao, licenca, versao do
+Java e nome da primeira classe), o gerador cria um projeto Maven que compila e passa nos
+testes sem ajustes manuais.
 
-## Pre-requisitos
+## Requisitos
 
-- JDK 17
-- Maven 3.9+
+- JDK 21 ou superior (para rodar o gerador)
+- Maven 3.9 ou superior
 
-## Como rodar o projeto base
+Confira as versoes instaladas:
+
+```bash
+java -version
+mvn -version
+```
+
+## Como executar
+
+### 1. Obter o codigo
+
+```bash
+git clone https://github.com/GabrielCardosoUnit/cookiecutter_java.git
+cd cookiecutter_java
+```
+
+### 2. Compilar e rodar os testes
 
 Na raiz do repositorio:
 
 ```bash
-mvn clean verify
+mvn test
 ```
 
-Esse comando compila o codigo, roda os testes (JUnit 5), gera o relatorio de cobertura
-(JaCoCo, exigindo minimo de 60% de cobertura de linhas) e aplica o lint (Checkstyle, no
-padrao Google). O relatorio de cobertura em HTML fica em `target/site/jacoco/index.html`
-depois do build.
+O Maven baixa as dependencias na primeira execucao, compila o gerador e roda todos os
+testes JUnit. O resultado esperado e `BUILD SUCCESS`. Os relatorios de cada classe de teste
+ficam em `target/surefire-reports/`.
 
-Para executar a aplicacao (imprime "Hello World!"):
+Para rodar apenas uma classe de teste:
 
 ```bash
-mvn -q exec:java -Dexec.mainClass="br.com.isadora.ccjava.App"
+mvn test -Dtest=ProjectGeneratorTest
 ```
 
-ou, depois do `mvn clean verify`, direto pelo jar gerado:
+### 3. Gerar o JAR
 
 ```bash
-java -cp target/classes br.com.isadora.ccjava.App
+mvn package
 ```
 
-## Como usar o gerador (Maven Archetype)
+O arquivo `target/jmol-project-generator-0.1.0-SNAPSHOT.jar` e criado com as classes e os
+modelos do gerador.
 
-### 1. Instalar o archetype localmente
+### Estado atual da execucao
 
-Dentro da pasta `cookiecutter-archetype/`:
+Nesta fase o gerador ainda **nao tem ponto de entrada** (classe `App` com `main`): a geracao
+de projetos e exercitada pelos testes, que criam projetos completos em pastas temporarias
+(`@TempDir`) e verificam arvore, conteudo, licenca, manifesto e determinismo. A execucao
+direta pelo terminal (com arquivo JSON) e pela interface Swing sera adicionada nas proximas
+fases (ver [Andamento](#andamento)).
+
+### Executar um projeto gerado
+
+Dentro da pasta de um projeto criado pelo gerador:
 
 ```bash
-cd cookiecutter-archetype
-mvn install
+mvn test
 ```
 
-### 2. Gerar um novo projeto a partir dele
+O projeto gerado ja vem com uma classe de exemplo e quatro testes JUnit, e deve terminar com
+`BUILD SUCCESS` sem nenhum ajuste manual.
 
-Em qualquer outra pasta (fora deste repositorio):
+## Projeto gerado (modelo `maven-basic`)
 
-```bash
-mvn archetype:generate \
-  -DarchetypeGroupId=br.com.isadora.ccjava \
-  -DarchetypeArtifactId=cookiecutter-archetype \
-  -DarchetypeVersion=1.0-SNAPSHOT
+```
+<artifactId>/
+|-- .github/workflows/build.yml      checkout, setup-java e mvn --batch-mode test (Linux)
+|-- .gitignore
+|-- LICENSE                          MIT, BSD-3-Clause ou Apache-2.0
+|-- README.md                        requisitos, build, testes e estrutura
+|-- docs/index.md
+|-- jmolgen-manifest.json            parametros usados, arquivos criados (SHA-256) e erros
+|-- pom.xml                          Java 17/21/25, UTF-8, JUnit 5 e Surefire
+`-- src/
+    |-- main/java/<pacote>/<Classe>.java
+    |-- main/resources/
+    `-- test/java/<pacote>/<Classe>Test.java
 ```
 
-O Maven vai pedir, em ordem:
+## Arquitetura
 
-| Pergunta | O que controla |
+| Pacote | Responsabilidade |
 |---|---|
-| `groupId`, `artifactId`, `version`, `package` | Identidade do novo projeto (padrao do Maven) |
-| `author` | Nome do autor, vai para o `pom.xml` gerado |
-| `description` | Descricao do projeto, vai para o `pom.xml` gerado |
-| `includeDependencies` (S/N) | Inclui o Checkstyle (lint) no projeto gerado |
-| `includeTests` (S/N) | Inclui JUnit 5, a classe de teste e o JaCoCo (cobertura) |
-| `includeDocs` (S/N) | Inclui o plugin de Javadoc |
-| `includeGit` (S/N) | Inclui `.gitignore` e o workflow de CI (`.github/workflows`) |
-| `includeLicense` (S/N) | Inclui o arquivo `LICENSE` |
+| `model` | `ProjectSpec` (record imutavel com as respostas) e `LicenseType` |
+| `validation` | `ProjectSpecValidator`: regras de nomes, pacote, versao e destino |
+| `template` | `TemplateRenderer` (substitui `${variavel}`), `TemplateSource`, `TemplateDescriptor`, `Escaping` |
+| `generation` | `ProjectGenerator`, `GenerationPlan` (previa) e `GenerationManifest` |
 
-Basta apertar Enter para aceitar o valor padrao mostrado entre colchetes, ou digitar
-outro valor (S/N, texto, etc). Ao final, o projeto novo e criado numa pasta com o nome
-do `artifactId` informado, ja pronto para `mvn clean verify`.
+Os modelos ficam em `src/main/resources/templates/maven-basic/`, descritos por
+`template.properties`.
 
-Para gerar sem perguntas (usando so os valores padrao ou passados via `-D`), adicione
-`-DinteractiveMode=false` e os `-D` com os valores desejados, por exemplo:
+### Correspondencia com o Cookiecutter original
 
-```bash
-mvn archetype:generate -DinteractiveMode=false \
-  -DarchetypeGroupId=br.com.isadora.ccjava \
-  -DarchetypeArtifactId=cookiecutter-archetype \
-  -DarchetypeVersion=1.0-SNAPSHOT \
-  -DgroupId=com.exemplo.meuprojeto \
-  -DartifactId=meu-novo-projeto \
-  -Dversion=1.0-SNAPSHOT \
-  -Dauthor="Seu Nome" \
-  -Ddescription="Meu novo projeto" \
-  -DincludeDependencies=S \
-  -DincludeTests=S \
-  -DincludeDocs=S \
-  -DincludeGit=S \
-  -DincludeLicense=S
-```
+| Cookiecutter (Python) | JMol Project Generator (Java) |
+|---|---|
+| `cookiecutter.json` | `ProjectSpec` |
+| `{{ cookiecutter.valor }}` | `${valor}`, substituido por `TemplateRenderer` |
+| hook `pre_gen_project` | `ProjectSpecValidator` |
+| `os.makedirs` / `open` | `Files.createDirectories` / `Files.writeString` |
+| pytest e diretorios de referencia | JUnit 5 com `@TempDir` |
+| `pyproject.toml` | `pom.xml` |
+| GitHub Actions (Python) | workflow Maven com `setup-java` e `mvn test` |
 
-## Integracao continua
+## Garantias e limites
 
-Todo push ou pull request para as branches `main` e `develop` dispara o workflow em
-`.github/workflows/ci.yml`, que roda `mvn clean verify` num runner Ubuntu com JDK 17 e
-publica os relatorios de teste e cobertura como artefatos da execucao.
+- **Validacao**: artifactId, pacote e nome da classe sao validados separadamente; palavras
+  reservadas do Java, nomes reservados do Windows (`con`, `nul`...) e nomes que colidem com
+  `java.lang` sao recusados. Todos os erros sao reportados de uma vez.
+- **Destino seguro**: a pasta do projeto e resolvida dentro da pasta escolhida; caminhos
+  absolutos e `..` sao recusados. Uma pasta nao vazia so recebe arquivos com confirmacao
+  explicita.
+- **Nada incompleto**: todos os arquivos sao renderizados em memoria antes da gravacao;
+  qualquer variavel sem valor interrompe a geracao antes de gravar o primeiro arquivo.
+- **Deterministico**: as mesmas respostas geram bytes identicos, com quebras de linha LF e
+  sem datas, valores aleatorios ou caminhos pessoais (inclusive no manifesto).
+- **Escape**: valores inseridos no `pom.xml` passam por escape XML (`&`, `<`, ...). Os campos
+  de texto aceitam uma unica linha.
+- O workflow gerado nao usa segredos nem publica pacotes.
+
+## Andamento
+
+- [x] Fase 1: estrutura do repositorio (JDK 21, pacote `br.edu.unit.jmolgen`)
+- [x] Fase 2: nucleo (modelo, validacao, modelo de arquivos, gerador, manifesto) e testes
+- [ ] Linha de comando e importacao/exportacao do `ProjectSpec` em JSON
+- [ ] `MavenVerifier` (executa `mvn test` no projeto gerado)
+- [ ] Interface Swing (Dados, Opcoes, Previa, Resultado)
+- [ ] Entregaveis: JAR executavel, `examples/` e relatorio tecnico
 
 ## Fluxo de branches
 
-O repositorio segue um fluxo simples de Git-flow: codigo novo entra pela branch
-`develop`; `main` fica reservada para versoes estaveis/merges.
+Codigo novo entra pela branch `develop`; `main` recebe as versoes estaveis.
