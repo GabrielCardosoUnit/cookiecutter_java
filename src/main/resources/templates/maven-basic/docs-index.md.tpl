@@ -10,7 +10,7 @@ A documentacao das classes e gerada a partir dos comentarios Javadoc:
 mvn javadoc:javadoc
 ```
 
-O resultado fica na pasta `apidocs`, dentro de `target/`.
+O resultado fica em `target/site/apidocs/`. O plugin Maven esta fixado no `pom.xml`.
 
 ## Como contribuir
 

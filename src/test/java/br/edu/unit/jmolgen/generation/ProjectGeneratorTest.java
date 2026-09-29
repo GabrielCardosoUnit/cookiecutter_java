@@ -88,6 +88,9 @@ class ProjectGeneratorTest {
     assertTrue(pom.contains("<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>"));
     assertTrue(pom.contains("<artifactId>junit-jupiter</artifactId>"));
     assertTrue(pom.contains("<artifactId>maven-surefire-plugin</artifactId>"));
+    assertTrue(pom.contains("<artifactId>jacoco-maven-plugin</artifactId>"));
+    assertTrue(pom.contains("<artifactId>maven-checkstyle-plugin</artifactId>"));
+    assertTrue(pom.contains("<artifactId>maven-javadoc-plugin</artifactId>"));
     assertTrue(pom.contains("<name>MIT License</name>"));
   }
 
@@ -102,6 +105,17 @@ class ProjectGeneratorTest {
     assertTrue(test.startsWith("package br.edu.unit.quimica;\n"));
     assertTrue(test.contains("class MolecularGeometryTest {"));
     assertTrue(test.contains("MolecularGeometry.distance("));
+  }
+
+  @Test
+  void generatesUserSelectedScientificClassName() throws Exception {
+    generator.generate(Specs.withFirstClassName("OrbitalModel"), base, false);
+
+    String source = read("src/main/java/br/edu/unit/quimica/OrbitalModel.java");
+    assertTrue(source.startsWith("package br.edu.unit.quimica;\n"));
+    assertTrue(source.contains("public final class OrbitalModel {"));
+    assertTrue(Files.exists(base.resolve(
+        "analise-molecular/src/test/java/br/edu/unit/quimica/OrbitalModelTest.java")));
   }
 
   @Test
