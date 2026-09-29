@@ -19,3 +19,6 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Guia de estudo pessoal (nao faz parte da entrega)
+learn.md
