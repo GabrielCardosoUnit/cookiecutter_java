@@ -12,7 +12,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import java.util.concurrent.TimeoutException;
 
 /** Executa {@code mvn --batch-mode test} sem ocultar a saida nem bloquear indefinidamente. */
 public final class MavenVerifier {

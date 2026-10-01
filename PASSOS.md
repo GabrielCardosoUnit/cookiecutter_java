@@ -13,7 +13,7 @@ sao gerados por padrao; controles para desativar esses recursos ainda nao existe
 
 | # | Passo | Situacao | Detalhe |
 |---|---|---|---|
-| 1 | Executar o Cookiecutter original | ❌ 👥 | Instalar Python e `cookiecutter`, gerar 2 projetos com opcoes diferentes e comparar arquivos removidos, licenca, testes e workflows. O resultado e a matriz de recursos que vai para o relatorio |
+| 1 | Executar o Cookiecutter original | ✅ | Instalar Python e `cookiecutter`, gerar 2 projetos com opcoes diferentes e comparar arquivos removidos, licenca, testes e workflows. O resultado e a matriz de recursos que vai para o relatorio |
 | 2 | Definir o escopo do template Java | ✅ | Modelo `maven-basic`: 9 arquivos + o manifesto |
 | 3 | Modelar os parametros | ✅ | Record `ProjectSpec` + enum `LicenseType` |
 | 4 | Validar nomes e caminhos | ✅ | `ProjectSpecValidator`: artifactId e pacote validados separadamente, bloqueio de `..` e caminho absoluto, pasta nao vazia |

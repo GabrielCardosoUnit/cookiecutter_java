@@ -1,0 +1,10 @@
+{
+  "projectName" : "Projeto Cientifico",
+  "artifactId" : "projeto-cientifico",
+  "basePackage" : "br.edu.unit.quimica",
+  "author" : "Grupo 3 - Universidade Tiradentes",
+  "description" : "Projeto de exemplo gerado pelo JMol Project Generator",
+  "javaVersion" : "21",
+  "license" : "MIT",
+  "firstClassName" : "MolecularGeometry"
+}

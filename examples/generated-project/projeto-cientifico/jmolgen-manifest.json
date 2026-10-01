@@ -1,0 +1,54 @@
+{
+  "generator" : "jmol-project-generator",
+  "templateName" : "maven-basic",
+  "templateVersion" : "1.0.0",
+  "parameters" : {
+    "artifactId" : "projeto-cientifico",
+    "author" : "Grupo 3 - Universidade Tiradentes",
+    "basePackage" : "br.edu.unit.quimica",
+    "description" : "Projeto de exemplo gerado pelo JMol Project Generator",
+    "firstClassName" : "MolecularGeometry",
+    "javaVersion" : "21",
+    "license" : "MIT",
+    "projectName" : "Projeto Cientifico"
+  },
+  "files" : [
+    {
+      "path" : ".github/workflows/build.yml",
+      "sha256" : "414935e481d206bba21cdb63a5010129be8c8a26551e8858ced0abefd025228e"
+    },
+    {
+      "path" : ".gitignore",
+      "sha256" : "a17d3042e18623979ff6e0b0a6d9a69c3931006202d2ee674a164d802bae60f2"
+    },
+    {
+      "path" : "LICENSE",
+      "sha256" : "15fa50141ff91afe584593a5533ced65f3990fc985b852071d773987f5bc5092"
+    },
+    {
+      "path" : "README.md",
+      "sha256" : "77229156202d2c10bf03e3f476efcd1553f2d20640c439e9d71ec2a657ce5ecc"
+    },
+    {
+      "path" : "docs/index.md",
+      "sha256" : "668eb7f4539adf9a0cd6d2ab483a3fd160fff37767de8f6ead208818fb840c69"
+    },
+    {
+      "path" : "pom.xml",
+      "sha256" : "40c66a255a076a85c0e05bf06ddff76878b12348b89bb3db2179f1adf033c8c1"
+    },
+    {
+      "path" : "src/main/java/br/edu/unit/quimica/MolecularGeometry.java",
+      "sha256" : "29b19483c6d25d8356f77dc2012c7e9b64595b2329cad51fc6c3297a4cafb6e9"
+    },
+    {
+      "path" : "src/main/resources/.gitkeep",
+      "sha256" : "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path" : "src/test/java/br/edu/unit/quimica/MolecularGeometryTest.java",
+      "sha256" : "87952f8de4fb550c9e055e9e9b9bfa082e3e1e3c48d2bfd404ef936944e81308"
+    }
+  ],
+  "errors" : [ ]
+}
