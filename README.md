@@ -102,6 +102,45 @@ mvn checkstyle:check
 mvn javadoc:javadoc
 ```
 
+### Projeto de exemplo (`projeto-cientifico`)
+
+O repositorio traz um projeto de referencia criado pelo proprio gerador a partir de
+`examples/project-spec.json`, sem edicoes manuais. Ele fica em
+`examples/generated-project/projeto-cientifico/`.
+
+Para roda-lo a partir deste repositorio:
+
+```bash
+cd examples/generated-project/projeto-cientifico
+mvn test
+```
+
+O mesmo projeto esta publicado em um repositorio proprio, para que o workflow gerado
+(`.github/workflows/build.yml`) seja executado pelo GitHub Actions. O GitHub so executa
+workflows que estao na raiz de um repositorio, entao dentro de `examples/` ele nao rodaria:
+
+- Repositorio: <https://github.com/GabrielCardosoUnit/projeto-cientifico>
+- Execucoes do CI: <https://github.com/GabrielCardosoUnit/projeto-cientifico/actions>
+- Evidencia: [execucao do workflow `Build` com sucesso](https://github.com/GabrielCardosoUnit/projeto-cientifico/actions/runs/36897588953)
+
+Para roda-lo em outra maquina (requer JDK 21 e Maven 3.9 ou superiores):
+
+```bash
+git clone https://github.com/GabrielCardosoUnit/projeto-cientifico.git
+cd projeto-cientifico
+mvn test
+```
+
+O resultado esperado e `BUILD SUCCESS` com 4 testes. O projeto de exemplo e uma biblioteca
+(uma classe com um calculo de geometria molecular), sem metodo `main`: "rodar" o projeto
+significa compilar e executar os testes.
+
+Para recriar o exemplo depois de alterar o JSON ou os modelos:
+
+```bash
+java -jar target/jmol-project-generator-0.1.0-SNAPSHOT.jar generate examples/project-spec.json examples/generated-project/ --overwrite --verify
+```
+
 ## Projeto gerado (modelo `maven-basic`)
 
 ```
@@ -171,7 +210,8 @@ Os modelos ficam em `src/main/resources/templates/maven-basic/`, descritos por
 - [x] Linha de comando e importacao/exportacao do `ProjectSpec` em JSON
 - [x] `MavenVerifier` (executa `mvn test` no projeto gerado)
 - [x] Interface Swing (Dados, Opcoes, Previa, Resultado)
-- [ ] Entregaveis externos: evidencia de CI publicado e relatorio tecnico comparativo
+- [x] Evidencia de CI: workflow gerado executado com sucesso no repositorio `projeto-cientifico`
+- [ ] Relatorio tecnico comparativo (Python x Java)
 
 ## Fluxo de branches
 

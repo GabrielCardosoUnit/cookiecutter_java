@@ -39,7 +39,7 @@ sao gerados por padrao; controles para desativar esses recursos ainda nao existe
 | `examples/project-spec.json` | ✅ Exemplo importavel |
 | `examples/generated-project/` | ✅ Gerado pelo proprio gerador |
 | JAR executavel | ✅ `mvn package` inclui dependencias e `Main-Class` |
-| Evidencia de execucao do CI gerado | ❌ Subir o projeto de exemplo para o GitHub e guardar o link ou print do workflow verde |
+| Evidencia de execucao do CI gerado | ✅ Workflow `Build` verde em <https://github.com/GabrielCardosoUnit/projeto-cientifico/actions/runs/36897588953> (commit `b8f208e`). Guardar tambem um print para o relatorio |
 | `docs/relatorio_tecnico.pdf` | ❌ 👥 Comparacao Python x Java, usando o passo 1 |
 
 ---
@@ -100,7 +100,7 @@ sao gerados por padrao; controles para desativar esses recursos ainda nao existe
 - [x] JAR executavel com Main-Class e dependencias embutidas (`mvn package`)
 - [x] `examples/project-spec.json`
 - [x] `examples/generated-project/` gerado pelo proprio gerador
-- [ ] Subir o projeto de exemplo para o GitHub e registrar o CI verde
+- [x] Subir o projeto de exemplo para o GitHub e registrar o CI verde (repositorio `GabrielCardosoUnit/projeto-cientifico`)
 - [x] README final (uso do JAR, CLI e interface)
 - [ ] Decidir sobre `templates/` na raiz (o roteiro mostra essa pasta; hoje os modelos ficam em `src/main/resources/templates/`, onde precisam estar para irem dentro do JAR)
 
