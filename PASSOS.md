@@ -105,10 +105,10 @@ sao gerados por padrao; controles para desativar esses recursos ainda nao existe
 - [ ] Decidir sobre `templates/` na raiz (o roteiro mostra essa pasta; hoje os modelos ficam em `src/main/resources/templates/`, onde precisam estar para irem dentro do JAR)
 
 ### 👥 Em paralelo: tarefas do grupo
-- [ ] Passo 1: rodar o Cookiecutter original e montar a matriz de recursos
-- [ ] Relatorio tecnico `docs/relatorio_tecnico.pdf` comparando Python e Java
-- [ ] Preparar a apresentacao (o `learn.md` ajuda a explicar o codigo)
+- [x] Passo 1: rodar o Cookiecutter original e montar a matriz de recursos
+- [x] Relatorio tecnico `docs/relatorio_tecnico.pdf` comparando Python e Java
+- [x] Preparar a apresentacao (o `learn.md` ajuda a explicar o codigo)
 
 ### Conferencia final
-- [ ] Repassar a lista de verificacao da secao 3 deste arquivo
-- [ ] Testar o JAR em outra maquina: preencher, visualizar, gerar, abrir e rodar `mvn test`
+- [x] Repassar a lista de verificacao da secao 3 deste arquivo
+- [x] Testar o JAR em outra maquina: preencher, visualizar, gerar, abrir e rodar `mvn test`
